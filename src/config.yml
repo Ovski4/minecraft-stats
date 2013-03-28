@@ -1,0 +1,7 @@
+Configuration:
+    Active: true
+MySQL:
+    Host: localhost
+    Login: 'studmine'
+    Password: 'studmine'
+    Database: 'studmine'
