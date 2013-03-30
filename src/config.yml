@@ -5,3 +5,4 @@ MySQL:
     Login: 'studmine'
     Password: 'studmine'
     Database: 'studmine'
+TimebetweenSaves: 30
