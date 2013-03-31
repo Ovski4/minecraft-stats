@@ -21,11 +21,12 @@ public class OnPlayerChat implements Listener {
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event)
     {
+        //increment the number of messages sent (verbosity) in playerStats object
         Player player = event.getPlayer();
         PlayerStats playerStats = StatsPlugin.getPlayerStats(player.getName());
         playerStats.incrementVerbosity();
 
-        /*save all stats if time since last time is > at time in conf*/
+        //save all stats if time since last time is > at time in the config.yml
         long thisTime = new Date().getTime();
         if ((thisTime-StatsPlugin.lastSaveTime)>(StatsPlugin.timeBetweenSaves*1000))
         {

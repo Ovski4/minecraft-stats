@@ -11,6 +11,11 @@ import studmine.mysqlmanager.MysqlStatsManager;
 import studmine.studstats.commands.*;
 import studmine.studstats.events.*;
 
+/**
+ * StatsPlugin
+ * Main class of the plugin
+ * @author Ovski
+ */
 public class StatsPlugin extends JavaPlugin
 {
     public static StudConnection connection = null;
@@ -47,11 +52,17 @@ public class StatsPlugin extends JavaPlugin
         getLogger().info(this.getName()+" v"+this.getDescription().getVersion()+" disabled");
     }
 
+    /**
+     * getCommands method instantiate the "Commands" class
+     */
     public void getCommands()
     {
         getCommand("stats").setExecutor(new StatsCommand(this));
     }
 
+    /**
+     * listenEvents method instantiate the "Events" class, according to the config
+     */
     public void listenEvents()
     {
         if (this.getConfig().getBoolean("StatsToBeRegistered.blockBreak"))
@@ -66,6 +77,9 @@ public class StatsPlugin extends JavaPlugin
         new OnPlayerQuit(this);
     }
 
+    /**
+     * initVariables method initialize the variables of the plugin
+     */
     public void initVariables()
     {
         StatsPlugin.timeBetweenSaves = this.getConfig().getInt("TimebetweenSaves");
@@ -74,6 +88,11 @@ public class StatsPlugin extends JavaPlugin
         StatsPlugin.playerStatsList  = new ArrayList<PlayerStats>();
     }
 
+    /**
+     * getPlayerStats method retrieve a PlayerStats object in the playerStatsList
+     * @param String pseudo
+     * @return PlayerStats playerStats : Contains the stat object of a player
+     */
     public static PlayerStats getPlayerStats(String pseudo)
     {
         for (PlayerStats playerStats : StatsPlugin.playerStatsList)

@@ -22,10 +22,12 @@ public class OnBlockPlace implements Listener
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event)
     {
+        //increment the number of blocks placed in playerStats object
         Player player = event.getPlayer();
         PlayerStats playerStats = StatsPlugin.getPlayerStats(player.getName());
         playerStats.incrementBlocksPlaced();
-        /*save all stats if time since last time is > at time in conf*/
+
+      //save all stats if time since last time is > at time in the config.yml file
         long thisTime = new Date().getTime();
         if ((thisTime-StatsPlugin.lastSaveTime)>(StatsPlugin.timeBetweenSaves*1000))
         {

@@ -1,5 +1,10 @@
 package studmine.studstats;
 
+/**
+ * PlayerStats
+ * Store and manage the statistics of a player
+ * @author Ovski
+ */
 public class PlayerStats
 {
     private String pseudo;
@@ -12,6 +17,10 @@ public class PlayerStats
     private int verbosity;
     private long timeSinceLastSave; //in milliseconds
 
+    /**
+     * getFormattedTimePlayed method format the TimePlayed in String
+     * @return String formattedTime : Contains the formatted (Xh, Xmin, Xsec) played time
+     */
     public String getFormattedTimePlayed()
     {
         long seconds = (timePlayed / 1000) % 60;
@@ -19,7 +28,11 @@ public class PlayerStats
         long hours   = timePlayed / (1000*60*60);
         return String.valueOf(hours)+" h, "+String.valueOf(minutes)+" min, "+String.valueOf(seconds)+" sec";
     }
-    
+
+    /**
+     * getRatio method calcuate the kill/death ratio
+     * @return float ratio
+     */
     public float getRatio()
     {
         if ((stupidDeaths+normalDeaths)==0)
@@ -32,6 +45,10 @@ public class PlayerStats
         }
     }
 
+    /**
+     * getTotalDeaths method calcuate the total number of deaths (normal and stupid ones)
+     * @return int totalDeaths
+     */
     public int getTotalDeaths()
     {
         return stupidDeaths+normalDeaths;

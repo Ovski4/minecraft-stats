@@ -12,7 +12,6 @@ import studmine.mysqlmanager.MysqlStatsManager;
 import studmine.studstats.PlayerStats;
 import studmine.studstats.StatsPlugin;
 
-
 public class OnBlockBreak implements Listener
 {
     public OnBlockBreak(StatsPlugin plugin)
@@ -23,11 +22,12 @@ public class OnBlockBreak implements Listener
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event)
     {
+        //increment the number of blocks broken in playerStats object
         Player player = event.getPlayer();
         PlayerStats playerStats = StatsPlugin.getPlayerStats(player.getName());
         playerStats.incrementBlocksBroken();
 
-        /*save all stats if time since last time is > at time in conf*/
+        //save all stats if time since last time is > at time in the config.yml file
         long thisTime = new Date().getTime();
         if ((thisTime-StatsPlugin.lastSaveTime)>(StatsPlugin.timeBetweenSaves*1000))
         {

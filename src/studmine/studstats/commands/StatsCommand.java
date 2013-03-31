@@ -10,6 +10,11 @@ import org.bukkit.entity.Player;
 import studmine.studstats.PlayerStats;
 import studmine.studstats.StatsPlugin;
 
+/**
+ * StatsCommand
+ * this command permit to display statistics of a player
+ * @author Ovski
+ */
 public class StatsCommand implements CommandExecutor
 {
     private StatsPlugin plugin;
@@ -28,9 +33,11 @@ public class StatsCommand implements CommandExecutor
                 PlayerStats playerStats = StatsPlugin.getPlayerStats(commandPlayer.getName());
                 if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
                 {
+                    //set the time played by the player
                     long timeOnCommand = new Date().getTime();
                     long timePlayed = timeOnCommand-playerStats.getTimeSinceLastSave();
                     playerStats.setTimePlayed(playerStats.getTimePlayed()+timePlayed);
+                    //reset the time since the last save for next time
                     playerStats.setTimeSinceLastSave(timeOnCommand);
                 }
 
@@ -60,6 +67,11 @@ public class StatsCommand implements CommandExecutor
         return false;
     }
 
+    /**
+     * getFormettedStats method format the statistic in a string
+     * @param PlayerStats playerStats
+     * @return String formattedStats
+     */
     public String getFormettedStats(PlayerStats playerStats)
     {
         boolean containStats = false;

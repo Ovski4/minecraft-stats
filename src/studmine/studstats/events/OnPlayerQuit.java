@@ -25,6 +25,7 @@ public class OnPlayerQuit implements Listener
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event)
     {
+        //update the stats of the player and remove him from the list
         Player player = event.getPlayer();
         PlayerStats playerStats =  StatsPlugin.getPlayerStats(player.getName());
         if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))

@@ -36,6 +36,7 @@ public class OnPlayerDeath implements Listener
             PlayerStats playerKillerStats = StatsPlugin.getPlayerStats(playerKiller.getName());
             playerKillerStats.incrementKills();
 
+            //add a new kill in PlayerKill table
             int killer_id = MysqlPlayerManager.getPlayerIdFromPseudo(playerKiller.getName());
             int killed_id = MysqlPlayerManager.getPlayerIdFromPseudo(playerKilled.getName());
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

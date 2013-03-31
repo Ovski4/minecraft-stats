@@ -26,9 +26,9 @@ public class OnPlayerJoin implements Listener
     public void onPlayerJoin(PlayerJoinEvent event)
     {
         Player player = event.getPlayer();
-        //ajout du joueur a la liste
+        //add the player to the list
         PlayerStats playerStats = MysqlStatsManager.getPlayerStats(player.getName());
-
+        //initialize the time (it will be used when a player launch statsCommand or when he leaves)
         if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
         {
             long timeOnJoin = new Date().getTime();
