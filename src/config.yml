@@ -6,3 +6,9 @@ MySQL:
     Password: 'studmine'
     Database: 'studmine'
 TimebetweenSaves: 30
+StatsToBeRegistered:
+    blockPlace: true
+    blockBreak: true
+    deaths: true
+    timeplayed: true
+    verbosity: true

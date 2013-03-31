@@ -21,7 +21,7 @@ public class MysqlStatsManager
                 + "verbosity="+playerStats.getVerbosity()
                 + " WHERE player_id = "+playerId
         );
-        System.out.println("the stats of "+playerStats.getPseudo()+" have been updated");
+        System.out.println("The stats of "+playerStats.getPseudo()+" have been updated");
     }
 
     public static PlayerStats getPlayerStats(String pseudo)
@@ -34,13 +34,13 @@ public class MysqlStatsManager
             if (resultat != null && resultat.next())
             {
                     playerStats.setPseudo(pseudo);
-                    playerStats.setBlocksBroken(resultat.getInt(1));
-                    playerStats.setBlocksPlaced(resultat.getInt(2));
-                    playerStats.setStupidDeaths(resultat.getInt(3));
-                    playerStats.setNormalDeath(resultat.getInt(4));
-                    playerStats.setKills(resultat.getInt(5));
-                    playerStats.setTimePlayed(resultat.getInt(6));
-                    playerStats.setVerbosity(resultat.getInt(7));
+                    playerStats.setBlocksBroken(resultat.getInt(2));
+                    playerStats.setBlocksPlaced(resultat.getInt(3));
+                    playerStats.setStupidDeaths(resultat.getInt(4));
+                    playerStats.setNormalDeath(resultat.getInt(5));
+                    playerStats.setKills(resultat.getInt(6));
+                    playerStats.setTimePlayed(resultat.getLong(7));
+                    playerStats.setVerbosity(resultat.getInt(8));
                     return playerStats;
             }
             else

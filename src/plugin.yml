@@ -1,3 +1,7 @@
 name: StudStats
-version: 0.3
+version: 0.5
 main: studmine.studstats.StatsPlugin
+commands:
+    stats:
+        description: affiche les statistiques du joueur
+        usage: /stats <pseudo_du_joueur>

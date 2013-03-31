@@ -26,39 +26,28 @@ public class OnPlayerDeath implements Listener
     {
         Date date = new Date();
         Player playerKilled = (Player) event.getEntity();
+        PlayerStats playerKilledStats = StatsPlugin.getPlayerStats(playerKilled.getName());
 
         if (playerKilled.getKiller() instanceof Player)
         {
-            Player playerKiller = playerKilled.getKiller();
-
-            PlayerStats playerKilledStats = StatsPlugin.getPlayerStats(playerKilled.getName());
             playerKilledStats.incrementNormalDeaths();
 
+            Player playerKiller = playerKilled.getKiller();
             PlayerStats playerKillerStats = StatsPlugin.getPlayerStats(playerKiller.getName());
             playerKillerStats.incrementKills();
 
             int killer_id = MysqlPlayerManager.getPlayerIdFromPseudo(playerKiller.getName());
             int killed_id = MysqlPlayerManager.getPlayerIdFromPseudo(playerKilled.getName());
-
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String currentTime = sdf.format(date);
+
             MysqlKillManager.insertKill(killer_id, killed_id, playerKiller.getItemInHand().getTypeId(), currentTime);
         }
         else
         {
-            PlayerStats playerKillerStats = StatsPlugin.getPlayerStats(playerKilled.getName());
-            playerKillerStats.incrementStupidDeaths();
+            playerKilledStats.incrementStupidDeaths();
         }
 
-        /*save all stats if time since last time is > at time in conf*/
-        long thisTime = date.getTime();
-        if ((thisTime-StatsPlugin.lastSaveTime)>(StatsPlugin.timeBetweenSaves*1000))
-        {
-            for (PlayerStats stats : StatsPlugin.playerStatsList)
-            {
-                MysqlStatsManager.updatePlayerStats(stats);
-            }
-            StatsPlugin.lastSaveTime = thisTime;
-        }
+        MysqlStatsManager.updatePlayerStats(playerKilledStats);
     }
 }

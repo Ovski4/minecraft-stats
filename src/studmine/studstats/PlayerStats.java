@@ -8,8 +8,34 @@ public class PlayerStats
     private int stupidDeaths;
     private int normalDeaths;
     private int kills;
-    private int timePlayed;
+    private long timePlayed; //in milliseconds
     private int verbosity;
+    private long timeSinceLastSave; //in milliseconds
+
+    public String getFormattedTimePlayed()
+    {
+        long seconds = (timePlayed / 1000) % 60;
+        long minutes = (timePlayed / (1000*60)) % 60;
+        long hours   = timePlayed / (1000*60*60);
+        return String.valueOf(hours)+" h, "+String.valueOf(minutes)+" min, "+String.valueOf(seconds)+" sec";
+    }
+    
+    public float getRatio()
+    {
+        if ((stupidDeaths+normalDeaths)==0)
+        {
+            return 0;
+        }
+        else
+        {
+            return (Float.valueOf(kills)/(Float.valueOf(stupidDeaths)+Float.valueOf(normalDeaths)));
+        }
+    }
+
+    public int getTotalDeaths()
+    {
+        return stupidDeaths+normalDeaths;
+    }
 
     /*Increments methods*/
 
@@ -36,11 +62,6 @@ public class PlayerStats
     public void incrementKills()
     {
         this.kills++;
-    }
-
-    public void incrementTimePlayed()
-    {
-        this.timePlayed++;
     }
 
     public void incrementVerbosity()
@@ -110,12 +131,12 @@ public class PlayerStats
         this.kills = kills;
     }
 
-    public int getTimePlayed()
+    public long getTimePlayed()
     {
         return timePlayed;
     }
 
-    public void setTimePlayed(int timePlayed)
+    public void setTimePlayed(long timePlayed)
     {
         this.timePlayed = timePlayed;
     }
@@ -128,5 +149,15 @@ public class PlayerStats
     public void setVerbosity(int verbosity)
     {
         this.verbosity = verbosity;
+    }
+
+    public long getTimeSinceLastSave()
+    {
+        return timeSinceLastSave;
+    }
+
+    public void setTimeSinceLastSave(long timeSinceLastSave)
+    {
+        this.timeSinceLastSave = timeSinceLastSave;
     }
 }
