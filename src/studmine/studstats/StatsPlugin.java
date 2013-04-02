@@ -34,7 +34,7 @@ public class StatsPlugin extends JavaPlugin
         this.listenEvents();
         this.getCommands();
         this.initVariables();
-
+        new SaveStats(this).runTaskTimer(this, 400, this.getConfig().getInt("TimebetweenSaves")*20);
         getLogger().info(this.getName()+" v"+this.getDescription().getVersion()+" enabled");
     }
 
@@ -47,6 +47,12 @@ public class StatsPlugin extends JavaPlugin
         // Save all the stats datas
         for (PlayerStats playerStats : StatsPlugin.playerStatsList)
         {
+            if (this.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
+            {
+                long timeOnServerDisable = new Date().getTime();
+                long timePlayed = timeOnServerDisable-playerStats.getTimeSinceLastSave();
+                playerStats.setTimePlayed(playerStats.getTimePlayed()+timePlayed);
+            }
             MysqlStatsManager.updatePlayerStats(playerStats);
         }
         getLogger().info(this.getName()+" v"+this.getDescription().getVersion()+" disabled");
