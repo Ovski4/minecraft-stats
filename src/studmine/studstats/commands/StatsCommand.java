@@ -48,11 +48,12 @@ public class StatsCommand implements CommandExecutor
 
             if (args.length == 1)
             {
-                if(plugin.getServer().getPlayer(args[0]).isOnline())
+                if(plugin.getServer().getPlayer(args[0]) != null)
                 {
                     PlayerStats playerStats = StatsPlugin.getPlayerStats(args[0]);
                     plugin.reloadConfig();
                     commandPlayer.sendMessage(getFormettedStats(playerStats));
+                    return true;
                 }
                 else
                 {

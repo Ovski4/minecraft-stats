@@ -9,7 +9,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import java.util.Date;
 
 import studmine.mysqlmanager.MysqlKillManager;
-import studmine.mysqlmanager.MysqlPlayerManager;
+import studmine.mysqlmanager.MysqlUserManager;
 import studmine.mysqlmanager.MysqlStatsManager;
 import studmine.studstats.PlayerStats;
 import studmine.studstats.StatsPlugin;
@@ -37,8 +37,8 @@ public class OnPlayerDeath implements Listener
             playerKillerStats.incrementKills();
 
             //add a new kill in PlayerKill table
-            int killer_id = MysqlPlayerManager.getPlayerIdFromPseudo(playerKiller.getName());
-            int killed_id = MysqlPlayerManager.getPlayerIdFromPseudo(playerKilled.getName());
+            int killer_id = MysqlUserManager.getPlayerIdFromPseudo(playerKiller.getName());
+            int killed_id = MysqlUserManager.getPlayerIdFromPseudo(playerKilled.getName());
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String currentTime = sdf.format(date);
 

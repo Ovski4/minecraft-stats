@@ -20,8 +20,8 @@ public class MysqlStatsManager
          * updatePlayerStats method update the statistics of a player
          * @param PlayerStats playerStats : Contains the playerStats of a player
          */
-        int playerId = MysqlPlayerManager.getPlayerIdFromPseudo(playerStats.getPseudo());
-        StatsPlugin.connection.sendData("UPDATE PlayerStats SET "
+        int playerId = MysqlUserManager.getPlayerIdFromPseudo(playerStats.getPseudo());
+        StatsPlugin.connection.sendData("UPDATE user_stats SET "
                 + "blocksBroken="+playerStats.getBlocksBroken()+", "
                 + "blocksPlaced="+playerStats.getBlocksPlaced()+", "
                 + "stupidDeaths="+playerStats.getStupidDeath()+", "
@@ -29,7 +29,7 @@ public class MysqlStatsManager
                 + "kills="+playerStats.getKills()+", "
                 + "timePlayed="+playerStats.getTimePlayed()+", "
                 + "verbosity="+playerStats.getVerbosity()
-                + " WHERE player_id = "+playerId
+                + " WHERE user_id = "+playerId
         );
         System.out.println("The stats of "+playerStats.getPseudo()+" have been updated");
     }
@@ -41,9 +41,9 @@ public class MysqlStatsManager
      */
     public static PlayerStats getPlayerStats(String pseudo)
     {
-        int playerId = MysqlPlayerManager.getPlayerIdFromPseudo(pseudo);
+        int playerId = MysqlUserManager.getPlayerIdFromPseudo(pseudo);
         PlayerStats playerStats = new PlayerStats();
-        ResultSet resultat = StatsPlugin.connection.getData("SELECT * FROM PlayerStats WHERE player_id="+playerId);
+        ResultSet resultat = StatsPlugin.connection.getData("SELECT * FROM user_stats WHERE user_id="+playerId);
         try
         {
             if (resultat != null && resultat.next())

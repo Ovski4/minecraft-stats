@@ -37,7 +37,7 @@ public class PlayerStats
     {
         if ((stupidDeaths+normalDeaths)==0)
         {
-            return 0;
+            return Float.valueOf(kills);
         }
         else
         {
