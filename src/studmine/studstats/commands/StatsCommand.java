@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.ChatColor;
 
+import studmine.mysqlmanager.MysqlStatsManager;
+import studmine.mysqlmanager.MysqlUserManager;
 import studmine.studstats.PlayerStats;
 import studmine.studstats.StatsPlugin;
 
@@ -20,12 +22,14 @@ public class StatsCommand implements CommandExecutor
 {
     private StatsPlugin plugin;
 
-    public StatsCommand(StatsPlugin plugin) {
+    public StatsCommand(StatsPlugin plugin)
+    {
         this.plugin = plugin;
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+    {
         if (sender instanceof Player) {
             Player commandPlayer = (Player) sender;
 
@@ -58,7 +62,17 @@ public class StatsCommand implements CommandExecutor
                 }
                 else
                 {
-                    commandPlayer.sendMessage("Pour pouvoir consulter ses statistiques, le joueur "+args[0]+" doit être en ligne.");
+                    //we check if the required player exists in database
+                    if (MysqlUserManager.exists(args[0]))
+                    {
+                        PlayerStats playerStats = MysqlStatsManager.getPlayerStats(args[0]);
+                        plugin.reloadConfig();
+                        commandPlayer.sendMessage(getFormettedStats(playerStats));
+                    }
+                    else
+                    {
+                        commandPlayer.sendMessage(ChatColor.RED+"Ce joueur est inconnu sur ce serveur");
+                    }
                     return true;
                 }
             }
@@ -70,7 +84,7 @@ public class StatsCommand implements CommandExecutor
     }
 
     /**
-     * getFormettedStats method format the statistic in a string
+     * getFormettedStats method format the statistic of the player who launch the command in a string
      * @param PlayerStats playerStats
      * @return String formattedStats
      */

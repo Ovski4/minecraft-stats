@@ -38,4 +38,30 @@ public class MysqlUserManager
             return -1;
         }
     }
+
+    /**
+     * exists method check if a player exist in database
+     * @param String pseudo : Contains the pseudo of the player
+     * @return boolean
+     */
+    public static boolean exists(String pseudo)
+    {
+        ResultSet resultat = StatsPlugin.connection.getData("SELECT user_id FROM user WHERE LOWER(pseudo)=LOWER('"+pseudo+"')");
+        try
+        {
+            if (resultat != null && resultat.next())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
