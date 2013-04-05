@@ -19,7 +19,7 @@ public class MysqlKillManager {
          * @param int weaponId : Contains the id of the weapon use for the kill
          * @param String date : Contains the date of the kill
          */
-        StatsPlugin.connection.sendData("INSERT INTO user_kill (user_killed_id, user_killer_id, date, weapon) "
+        StatsPlugin.connection.sendData("INSERT INTO kill (killed_user_id, killer_user_id, date, weapon_id) "
                 + "VALUES ("
                 + killedId
                 + ","

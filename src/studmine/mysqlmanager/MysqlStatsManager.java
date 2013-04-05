@@ -21,13 +21,13 @@ public class MysqlStatsManager
          * @param PlayerStats playerStats : Contains the playerStats of a player
          */
         int playerId = MysqlUserManager.getPlayerIdFromPseudo(playerStats.getPseudo());
-        StatsPlugin.connection.sendData("UPDATE user_stats SET "
-                + "blocksBroken="+playerStats.getBlocksBroken()+", "
-                + "blocksPlaced="+playerStats.getBlocksPlaced()+", "
-                + "stupidDeaths="+playerStats.getStupidDeath()+", "
-                + "deaths="+playerStats.getNormalDeaths()+", "
+        StatsPlugin.connection.sendData("UPDATE stats SET "
+                + "broken_blocks="+playerStats.getBlocksBroken()+", "
+                + "placed_blocks="+playerStats.getBlocksPlaced()+", "
+                + "stupid_deaths="+playerStats.getStupidDeath()+", "
+                + "pvp_deaths="+playerStats.getNormalDeaths()+", "
                 + "kills="+playerStats.getKills()+", "
-                + "timePlayed="+playerStats.getTimePlayed()+", "
+                + "played_time="+playerStats.getTimePlayed()+", "
                 + "verbosity="+playerStats.getVerbosity()
                 + " WHERE user_id = "+playerId
         );
@@ -43,7 +43,7 @@ public class MysqlStatsManager
     {
         int playerId = MysqlUserManager.getPlayerIdFromPseudo(pseudo);
         PlayerStats playerStats = new PlayerStats();
-        ResultSet resultat = StatsPlugin.connection.getData("SELECT * FROM user_stats WHERE user_id="+playerId);
+        ResultSet resultat = StatsPlugin.connection.getData("SELECT * FROM stats WHERE user_id="+playerId);
         try
         {
             if (resultat != null && resultat.next())

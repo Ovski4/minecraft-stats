@@ -20,12 +20,12 @@ public class MysqlUserManager
      */
     public static int getPlayerIdFromPseudo(String pseudo)
     {
-        ResultSet resultat = StatsPlugin.connection.getData("SELECT id_user FROM user WHERE LOWER(pseudo)=LOWER('"+pseudo+"')");
+        ResultSet resultat = StatsPlugin.connection.getData("SELECT user_id FROM user WHERE LOWER(pseudo)=LOWER('"+pseudo+"')");
         try
         {
             if (resultat != null && resultat.next())
             {
-                return resultat.getInt("id_user");
+                return resultat.getInt("user_id");
             }
             else
             {

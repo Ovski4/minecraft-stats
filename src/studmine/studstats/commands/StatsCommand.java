@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.ChatColor;
 
 import studmine.studstats.PlayerStats;
 import studmine.studstats.StatsPlugin;
@@ -62,7 +63,7 @@ public class StatsCommand implements CommandExecutor
                 }
             }
 
-            commandPlayer.sendMessage("Syntaxe de la commande: /stats nomJoueur (nomJoueur facultatif pour vos propres statistiques)");
+            commandPlayer.sendMessage(ChatColor.RED+"Syntaxe de la commande: /stats nomJoueur (nomJoueur facultatif pour vos propres statistiques)");
             return true;
         }
         return false;
@@ -80,38 +81,39 @@ public class StatsCommand implements CommandExecutor
         if (plugin.getConfig().getBoolean("StatsToBeRegistered.blockBreak"))
         {
             containStats = true;
-            blockBreakString = "blocs cassés: "+playerStats.getBlocksBroken()+"\n";
+            blockBreakString = ChatColor.BLUE+"blocs cassés: "+ChatColor.WHITE+playerStats.getBlocksBroken()+"\n";
         }
         String blockPlaceString = "";
         if (plugin.getConfig().getBoolean("StatsToBeRegistered.blockPlace"))
         {
             containStats = true;
-            blockPlaceString =  "blocs placés: "+playerStats.getBlocksPlaced()+"\n";
+            blockPlaceString =  ChatColor.BLUE+"blocs placés: "+ChatColor.WHITE+playerStats.getBlocksPlaced()+"\n";
         }
         String deathsString = "";
         if (plugin.getConfig().getBoolean("StatsToBeRegistered.deaths"))
         {
             containStats = true;
-            deathsString =  "nombre de tués: "+playerStats.getKills()+"\n"
-                    + "nombre de morts: "+playerStats.getTotalDeaths()+"\n"
-                    + "ratio tués/morts: "+String.valueOf(playerStats.getRatio())+"\n";
+            deathsString =  ChatColor.BLUE+"tués: "+ChatColor.WHITE+playerStats.getKills()+"\n"
+                    + ChatColor.BLUE+"morts au combat: "+ChatColor.WHITE+playerStats.getNormalDeaths()+"\n"
+                    + ChatColor.BLUE+"morts stupides: "+ChatColor.WHITE+playerStats.getStupidDeath()+"\n"
+                    + ChatColor.BLUE+"ratio tués/morts: "+ChatColor.WHITE+String.valueOf(playerStats.getRatio())+"\n";
         }
         String timeplayedString = "";
         if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
         {
             containStats = true;
-            timeplayedString = "temps de jeu: "+playerStats.getFormattedTimePlayed()+"\n";
+            timeplayedString = ChatColor.BLUE+"temps de jeu: "+ChatColor.WHITE+playerStats.getFormattedTimePlayed()+"\n";
         }
         String verbosityString = "";
         if (plugin.getConfig().getBoolean("StatsToBeRegistered.verbosity"))
         {
             containStats = true;
-            verbosityString = "bavardise: "+playerStats.getVerbosity();
+            verbosityString = ChatColor.BLUE+"bavardise: "+ChatColor.WHITE+playerStats.getVerbosity();
         }
 
         if(containStats)
         {
-            return "--------- "+playerStats.getPseudo()+" - statistiques ---------\n"
+            return "--------- "+playerStats.getPseudo()+" - Statistiques ---------\n"
             + blockBreakString
             + blockPlaceString
             + deathsString

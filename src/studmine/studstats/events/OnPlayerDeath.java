@@ -1,5 +1,6 @@
 package studmine.studstats.events;
 
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.Bukkit;
@@ -28,10 +29,15 @@ public class OnPlayerDeath implements Listener
         Player playerKilled = (Player) event.getEntity();
         PlayerStats playerKilledStats = StatsPlugin.getPlayerStats(playerKilled.getName());
 
-        if (playerKilled.getKiller() instanceof Player)
+        //killed by a NPC
+        if (!(playerKilled.getKiller() instanceof Player) && playerKilled.getKiller() instanceof HumanEntity)
         {
             playerKilledStats.incrementNormalDeaths();
-
+        }
+        //killed by a player
+        else if (playerKilled.getKiller() instanceof Player)
+        {
+            playerKilledStats.incrementNormalDeaths();
             Player playerKiller = playerKilled.getKiller();
             PlayerStats playerKillerStats = StatsPlugin.getPlayerStats(playerKiller.getName());
             playerKillerStats.incrementKills();
@@ -44,6 +50,7 @@ public class OnPlayerDeath implements Listener
 
             MysqlKillManager.insertKill(killer_id, killed_id, playerKiller.getItemInHand().getTypeId(), currentTime);
         }
+        //stupid kill
         else
         {
             playerKilledStats.incrementStupidDeaths();
