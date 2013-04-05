@@ -24,9 +24,12 @@ public class SaveStats extends BukkitRunnable {
         {
             if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
             {
-                long timeOnQuit = new Date().getTime();
-                long timePlayed = timeOnQuit-stats.getTimeSinceLastSave();
+                //set the time played by the player
+                long timeOnSave = new Date().getTime();
+                long timePlayed = timeOnSave-stats.getTimeSinceLastSave();
                 stats.setTimePlayed(stats.getTimePlayed()+timePlayed);
+                //reset the time since the last save for next time
+                stats.setTimeSinceLastSave(timeOnSave);
             }
             MysqlStatsManager.updatePlayerStats(stats);
         }
