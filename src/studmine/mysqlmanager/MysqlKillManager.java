@@ -4,7 +4,7 @@ import studmine.studstats.StatsPlugin;
 
 /**
  * MysqlKillManager
- * Manage requests involving the PlayerKill table
+ * Manage requests involving the kill table
  * Require a plugin with a database connection
  * @author Ovski
  */

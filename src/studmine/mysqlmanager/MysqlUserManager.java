@@ -7,7 +7,7 @@ import studmine.studstats.StatsPlugin;
 
 /**
  * MysqlPlayerManager
- * Manage requests involving the Player table
+ * Manage requests involving the user table
  * Require a plugin with a database connection
  * @author Ovski
  */
