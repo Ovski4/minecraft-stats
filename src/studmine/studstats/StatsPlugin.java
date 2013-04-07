@@ -64,6 +64,8 @@ public class StatsPlugin extends JavaPlugin
     public void getCommands()
     {
         getCommand("stats").setExecutor(new StatsCommand(this));
+        if (this.getConfig().getBoolean("StatsToBeRegistered.prestige"))
+            getCommand("noter").setExecutor(new NoterCommand());
     }
 
     /**

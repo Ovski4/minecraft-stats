@@ -12,3 +12,4 @@ StatsToBeRegistered:
     deaths: true
     timeplayed: true
     verbosity: true
+    prestige: true

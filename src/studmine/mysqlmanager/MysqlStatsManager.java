@@ -8,30 +8,71 @@ import studmine.studstats.StatsPlugin;
 
 /**
  * MysqlStatsManager
- * Manage requests involving the PlayerStats table
+ * Manage requests involving the stats table
  * Require a plugin with a database connection
  * @author Ovski
  */
 public class MysqlStatsManager
 {
+    /**
+     * updatePlayerStats method update the statistics of a player
+     * @param PlayerStats playerStats : Contains the playerStats of a player
+     */
     public static void updatePlayerStats(PlayerStats playerStats)
     {
-        /**
-         * updatePlayerStats method update the statistics of a player
-         * @param PlayerStats playerStats : Contains the playerStats of a player
-         */
         int playerId = MysqlUserManager.getPlayerIdFromPseudo(playerStats.getPseudo());
         StatsPlugin.connection.sendData("UPDATE stats SET "
                 + "broken_blocks="+playerStats.getBlocksBroken()+", "
                 + "placed_blocks="+playerStats.getBlocksPlaced()+", "
-                + "stupid_deaths="+playerStats.getStupidDeath()+", "
+                + "stupid_deaths="+playerStats.getStupidDeaths()+", "
                 + "pvp_deaths="+playerStats.getNormalDeaths()+", "
                 + "kills="+playerStats.getKills()+", "
                 + "played_time="+playerStats.getTimePlayed()+", "
-                + "verbosity="+playerStats.getVerbosity()
+                + "verbosity="+playerStats.getVerbosity()+", "
+                + "prestige="+playerStats.getPrestige()
                 + " WHERE user_id = "+playerId
         );
         System.out.println("The stats of "+playerStats.getPseudo()+" have been updated");
+    }
+
+    /**
+     * updatePrestige method update the prestige of a player
+     * @param int prestige : Contains the value of the prestige
+     */
+    public static void updatePrestige(String pseudo, int prestige)
+    {
+        int playerId = MysqlUserManager.getPlayerIdFromPseudo(pseudo);
+        StatsPlugin.connection.sendData("UPDATE stats SET "
+                + "prestige="+prestige
+                + " WHERE user_id = "+playerId
+        );
+    }
+
+    /**
+     * getPrestige method retrieve the prestige of a player
+     * @param String pseudo : Contains the pseudo of a player
+     * @return int prestige : The prestige value
+     */
+    public static int getPrestige(String pseudo)
+    {
+        int playerId = MysqlUserManager.getPlayerIdFromPseudo(pseudo);
+        ResultSet resultat = StatsPlugin.connection.getData("SELECT prestige FROM stats WHERE user_id="+playerId);
+        try
+        {
+            if (resultat != null && resultat.next())
+            {
+                return resultat.getInt(1);
+            }
+            else
+            {
+                return -1000;
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return -1000;
+        }
     }
 
     /**
@@ -52,11 +93,11 @@ public class MysqlStatsManager
                     playerStats.setBlocksBroken(resultat.getInt(2));
                     playerStats.setBlocksPlaced(resultat.getInt(3));
                     playerStats.setStupidDeaths(resultat.getInt(4));
-                    playerStats.setNormalDeath(resultat.getInt(5));
+                    playerStats.setNormalDeaths(resultat.getInt(5));
                     playerStats.setKills(resultat.getInt(6));
                     playerStats.setTimePlayed(resultat.getLong(7));
                     playerStats.setVerbosity(resultat.getInt(8));
-                    return playerStats;
+                    playerStats.setPrestige(resultat.getInt(9));
             }
             else
             {
@@ -68,5 +109,6 @@ public class MysqlStatsManager
             e.printStackTrace();
             return null;
         }
+        return playerStats;
     }
 }

@@ -2,7 +2,8 @@ package studmine.studstats;
 
 /**
  * PlayerStats
- * Store and manage the statistics of a player
+ * Store and manage the statistics of a player (this class mapped the stats table)
+ * Each object refers to a single player
  * @author Ovski
  */
 public class PlayerStats
@@ -16,6 +17,7 @@ public class PlayerStats
     private long timePlayed; //in milliseconds
     private int verbosity;
     private long timeSinceLastSave; //in milliseconds
+    private int prestige;
 
     /**
      * getFormattedTimePlayed method format the TimePlayed in String
@@ -88,6 +90,14 @@ public class PlayerStats
 
     /*Getters and setters*/
 
+    public int getPrestige() {
+        return prestige;
+    }
+
+    public void setPrestige(int prestige) {
+        this.prestige = prestige;
+    }
+
     public String getPseudo()
     {
         return pseudo;
@@ -118,7 +128,7 @@ public class PlayerStats
         this.blocksPlaced = blocksPlaced;
     }
 
-    public int getStupidDeath()
+    public int getStupidDeaths()
     {
         return stupidDeaths;
     }
@@ -133,7 +143,7 @@ public class PlayerStats
         return normalDeaths;
     }
 
-    public void setNormalDeath(int normalDeaths)
+    public void setNormalDeaths(int normalDeaths)
     {
         this.normalDeaths = normalDeaths;
     }

@@ -30,7 +30,8 @@ public class StatsCommand implements CommandExecutor
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        if (sender instanceof Player) {
+        if (sender instanceof Player)
+        {
             Player commandPlayer = (Player) sender;
 
             if (args.length == 0)
@@ -56,6 +57,16 @@ public class StatsCommand implements CommandExecutor
                 if(plugin.getServer().getPlayer(args[0]) != null)
                 {
                     PlayerStats playerStats = StatsPlugin.getPlayerStats(args[0]);
+                    if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
+                    {
+                        //set the time played by the player
+                        long timeOnCommand = new Date().getTime();
+                        long timePlayed = timeOnCommand-playerStats.getTimeSinceLastSave();
+                        playerStats.setTimePlayed(playerStats.getTimePlayed()+timePlayed);
+                        //reset the time since the last save for next time
+                        playerStats.setTimeSinceLastSave(timeOnCommand);
+                    }
+
                     plugin.reloadConfig();
                     commandPlayer.sendMessage(getFormettedStats(playerStats));
                     return true;
@@ -71,7 +82,7 @@ public class StatsCommand implements CommandExecutor
                     }
                     else
                     {
-                        commandPlayer.sendMessage(ChatColor.RED+"Ce joueur est inconnu sur ce serveur");
+                        commandPlayer.sendMessage(ChatColor.RED+args[0]+" est inconnu sur ce serveur");
                     }
                     return true;
                 }
@@ -109,7 +120,7 @@ public class StatsCommand implements CommandExecutor
             containStats = true;
             deathsString =  ChatColor.BLUE+"tués: "+ChatColor.WHITE+playerStats.getKills()+"\n"
                     + ChatColor.BLUE+"morts au combat: "+ChatColor.WHITE+playerStats.getNormalDeaths()+"\n"
-                    + ChatColor.BLUE+"morts stupides: "+ChatColor.WHITE+playerStats.getStupidDeath()+"\n"
+                    + ChatColor.BLUE+"morts stupides: "+ChatColor.WHITE+playerStats.getStupidDeaths()+"\n"
                     + ChatColor.BLUE+"ratio tués/morts: "+ChatColor.WHITE+String.valueOf(playerStats.getRatio())+"\n";
         }
         String timeplayedString = "";
@@ -122,7 +133,13 @@ public class StatsCommand implements CommandExecutor
         if (plugin.getConfig().getBoolean("StatsToBeRegistered.verbosity"))
         {
             containStats = true;
-            verbosityString = ChatColor.BLUE+"bavardise: "+ChatColor.WHITE+playerStats.getVerbosity();
+            verbosityString = ChatColor.BLUE+"bavardise: "+ChatColor.WHITE+playerStats.getVerbosity()+"\n";
+        }
+        String appreciationString = "";
+        if (plugin.getConfig().getBoolean("StatsToBeRegistered.prestige"))
+        {
+            containStats = true;
+            appreciationString = ChatColor.BLUE+"prestige: "+ChatColor.WHITE+playerStats.getPrestige();
         }
 
         if(containStats)
@@ -133,6 +150,7 @@ public class StatsCommand implements CommandExecutor
             + deathsString
             + timeplayedString
             + verbosityString
+            + appreciationString
             ;
         }
         else

@@ -1,7 +1,10 @@
 name: StudStats
-version: 1.0
+version: 1.1
 main: studmine.studstats.StatsPlugin
 commands:
     stats:
         description: affiche les statistiques du joueur
         usage: /stats <pseudo_du_joueur>
+    noter:
+      description: note un joueur de -5 a 5
+      usage: /noter <pseudo_du_joueur> <valeur>
