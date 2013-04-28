@@ -9,10 +9,10 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.Date;
 
-import studmine.mysqlmanager.MysqlKillManager;
-import studmine.mysqlmanager.MysqlUserManager;
-import studmine.mysqlmanager.MysqlStatsManager;
-import studmine.studstats.PlayerStats;
+import studmine.api.entities.PlayerStats;
+import studmine.api.mysql.MysqlKillManager;
+import studmine.api.mysql.MysqlStatsManager;
+import studmine.api.mysql.MysqlUserManager;
 import studmine.studstats.StatsPlugin;
 
 public class OnPlayerDeath implements Listener

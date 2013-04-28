@@ -6,8 +6,8 @@ import java.util.Date;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import studmine.library.StudConnection;
-import studmine.mysqlmanager.MysqlStatsManager;
+import studmine.api.entities.PlayerStats;
+import studmine.api.mysql.MysqlStatsManager;
 import studmine.studstats.commands.*;
 import studmine.studstats.events.*;
 
@@ -18,7 +18,6 @@ import studmine.studstats.events.*;
  */
 public class StatsPlugin extends JavaPlugin
 {
-    public static StudConnection connection = null;
     public static List<PlayerStats> playerStatsList;
     public static long timeBetweenSaves;
     public static long lastSaveTime;
@@ -92,7 +91,6 @@ public class StatsPlugin extends JavaPlugin
     {
         StatsPlugin.timeBetweenSaves = this.getConfig().getInt("TimebetweenSaves");
         StatsPlugin.lastSaveTime = new Date().getTime();
-        StatsPlugin.connection = StudConnection.getStudConnection("jdbc:mysql://"+this.getConfig().getString("MySQL.Host")+":3306/"+this.getConfig().getString("MySQL.Database"), this.getConfig().getString("MySQL.Login"), this.getConfig().getString("MySQL.Password"));
         StatsPlugin.playerStatsList  = new ArrayList<PlayerStats>();
     }
 

@@ -1,6 +1,6 @@
 package studmine.studstats;
 
-import studmine.mysqlmanager.MysqlStatsManager;
+import studmine.api.mysql.MysqlStatsManager;
 
 public class NoteTools {
 

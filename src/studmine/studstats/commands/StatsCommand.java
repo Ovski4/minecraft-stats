@@ -8,9 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.ChatColor;
 
-import studmine.mysqlmanager.MysqlStatsManager;
-import studmine.mysqlmanager.MysqlUserManager;
-import studmine.studstats.PlayerStats;
+import studmine.api.entities.PlayerStats;
+import studmine.api.mysql.MysqlStatsManager;
+import studmine.api.mysql.MysqlUserManager;
 import studmine.studstats.StatsPlugin;
 
 /**

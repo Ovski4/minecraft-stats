@@ -1,6 +1,3 @@
-
-    Fonctionnement du plugin:
-
     Ce plugin enregistre des statistiques sur les joueurs.
 
     Les statistiques de chaque joueur sont enregistrés dans un objet (classe PlayerStats). De cette manière c'est cet objet qui est modifié lors des évenements, et non pas les tables en base de donnée pour plus de rapidité.
@@ -16,6 +13,3 @@
     Il est possible d'indiquer quels évènements enregistrer dans la config. Il faut (pour l'instant, a voir si utile de changer) recharger le serveur pour désactiver/activer les évenements qui sont passés à true/false dans la config. En revanche pas besoin de recharger le serveur pour cacher les statistiques mis à false dans la config, lors de l'appel à la command /stats.
 
     Ce plugin gère également le système de prestige. Chaque joueur peut attribuer une note à un autre (note allant de -5 à 5 en fonction de son ancienneté sur le serveur). Le prestige commence à zéro et est mis à jour a chaque ajout de note par un joueur.
-
-# Todo #
-    modifier le schema sql (table note et attribut prestige)

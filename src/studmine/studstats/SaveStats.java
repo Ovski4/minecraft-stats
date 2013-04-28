@@ -2,7 +2,8 @@ package studmine.studstats;
 
 import java.util.Date;
 import org.bukkit.scheduler.BukkitRunnable;
-import studmine.mysqlmanager.MysqlStatsManager;
+import studmine.api.entities.PlayerStats;
+import studmine.api.mysql.MysqlStatsManager;
 
 
 /**

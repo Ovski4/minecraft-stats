@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-import studmine.studstats.PlayerStats;
+import studmine.api.entities.PlayerStats;
 import studmine.studstats.StatsPlugin;
 
 public class OnBlockPlace implements Listener

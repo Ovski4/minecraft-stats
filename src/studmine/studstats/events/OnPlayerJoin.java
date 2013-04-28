@@ -8,8 +8,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import studmine.mysqlmanager.MysqlStatsManager;
-import studmine.studstats.PlayerStats;
+import studmine.api.entities.PlayerStats;
+import studmine.api.mysql.MysqlStatsManager;
 import studmine.studstats.StatsPlugin;
 
 public class OnPlayerJoin implements Listener

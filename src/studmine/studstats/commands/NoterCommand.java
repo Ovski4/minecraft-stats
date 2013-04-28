@@ -6,11 +6,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import studmine.mysqlmanager.MysqlNoteManager;
-import studmine.mysqlmanager.MysqlStatsManager;
-import studmine.mysqlmanager.MysqlUserManager;
+import studmine.api.entities.PlayerStats;
+import studmine.api.mysql.MysqlNoteManager;
+import studmine.api.mysql.MysqlStatsManager;
+import studmine.api.mysql.MysqlUserManager;
 import studmine.studstats.NoteTools;
-import studmine.studstats.PlayerStats;
 import studmine.studstats.StatsPlugin;
 
 public class NoterCommand implements CommandExecutor
