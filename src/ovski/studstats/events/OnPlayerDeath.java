@@ -1,4 +1,4 @@
-package studmine.studstats.events;
+package ovski.studstats.events;
 
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -9,11 +9,11 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.Date;
 
-import studmine.api.entities.PlayerStats;
-import studmine.api.mysql.MysqlKillManager;
-import studmine.api.mysql.MysqlStatsManager;
-import studmine.api.mysql.MysqlUserManager;
-import studmine.studstats.StatsPlugin;
+import ovski.api.entities.PlayerStats;
+import ovski.api.mysql.MysqlKillManager;
+import ovski.api.mysql.MysqlStatsManager;
+import ovski.api.mysql.MysqlUserManager;
+import ovski.studstats.StatsPlugin;
 
 public class OnPlayerDeath implements Listener
 {

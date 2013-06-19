@@ -1,4 +1,4 @@
-package studmine.studstats.commands;
+package ovski.studstats.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -6,12 +6,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import studmine.api.entities.PlayerStats;
-import studmine.api.mysql.MysqlNoteManager;
-import studmine.api.mysql.MysqlStatsManager;
-import studmine.api.mysql.MysqlUserManager;
-import studmine.studstats.NoteTools;
-import studmine.studstats.StatsPlugin;
+import ovski.api.entities.PlayerStats;
+import ovski.api.mysql.MysqlNoteManager;
+import ovski.api.mysql.MysqlStatsManager;
+import ovski.api.mysql.MysqlUserManager;
+import ovski.studstats.NoteTools;
+import ovski.studstats.StatsPlugin;
 
 public class NoterCommand implements CommandExecutor
 {

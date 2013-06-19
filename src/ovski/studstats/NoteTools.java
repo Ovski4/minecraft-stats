@@ -1,6 +1,6 @@
-package studmine.studstats;
+package ovski.studstats;
 
-import studmine.api.mysql.MysqlStatsManager;
+import ovski.api.mysql.MysqlStatsManager;
 
 public class NoteTools {
 

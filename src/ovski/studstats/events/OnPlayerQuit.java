@@ -1,4 +1,4 @@
-package studmine.studstats.events;
+package ovski.studstats.events;
 
 import java.util.Date;
 
@@ -8,9 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import studmine.api.entities.PlayerStats;
-import studmine.api.mysql.MysqlStatsManager;
-import studmine.studstats.StatsPlugin;
+import ovski.api.entities.PlayerStats;
+import ovski.api.mysql.MysqlStatsManager;
+import ovski.studstats.StatsPlugin;
 
 public class OnPlayerQuit implements Listener
 {

@@ -1,4 +1,4 @@
-package studmine.studstats.events;
+package ovski.studstats.events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -6,8 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import studmine.api.entities.PlayerStats;
-import studmine.studstats.StatsPlugin;
+import ovski.api.entities.PlayerStats;
+import ovski.studstats.StatsPlugin;
 
 public class OnPlayerChat implements Listener {
     public OnPlayerChat(StatsPlugin plugin)

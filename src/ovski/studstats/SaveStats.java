@@ -1,10 +1,9 @@
-package studmine.studstats;
+package ovski.studstats;
 
 import java.util.Date;
 import org.bukkit.scheduler.BukkitRunnable;
-import studmine.api.entities.PlayerStats;
-import studmine.api.mysql.MysqlStatsManager;
-
+import ovski.api.entities.PlayerStats;
+import ovski.api.mysql.MysqlStatsManager;
 
 /**
  * SaveStats
@@ -36,5 +35,4 @@ public class SaveStats extends BukkitRunnable {
         }
         StatsPlugin.lastSaveTime = thisTime;
     }
- 
 }

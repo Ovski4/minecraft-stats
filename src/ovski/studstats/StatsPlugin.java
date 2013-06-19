@@ -1,4 +1,4 @@
-package studmine.studstats;
+package ovski.studstats;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.Date;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import studmine.api.entities.PlayerStats;
-import studmine.api.mysql.MysqlStatsManager;
-import studmine.studstats.commands.*;
-import studmine.studstats.events.*;
+import ovski.api.entities.PlayerStats;
+import ovski.api.mysql.MysqlStatsManager;
+import ovski.studstats.commands.*;
+import ovski.studstats.events.*;
 
 /**
  * StatsPlugin

@@ -1,4 +1,4 @@
-package studmine.studstats.commands;
+package ovski.studstats.commands;
 
 import java.util.Date;
 
@@ -8,10 +8,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.ChatColor;
 
-import studmine.api.entities.PlayerStats;
-import studmine.api.mysql.MysqlStatsManager;
-import studmine.api.mysql.MysqlUserManager;
-import studmine.studstats.StatsPlugin;
+import ovski.api.entities.PlayerStats;
+import ovski.api.mysql.MysqlStatsManager;
+import ovski.api.mysql.MysqlUserManager;
+import ovski.studstats.StatsPlugin;
 
 /**
  * StatsCommand
