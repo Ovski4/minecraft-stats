@@ -3,7 +3,7 @@ package ovski.studstats;
 import java.util.Date;
 import org.bukkit.scheduler.BukkitRunnable;
 import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlStatsManager;
+import ovski.api.mysql.MysqlPlayerManager;
 
 /**
  * SaveStats
@@ -31,7 +31,7 @@ public class SaveStats extends BukkitRunnable {
                 //reset the time since the last save for next time
                 stats.setTimeSinceLastSave(timeOnSave);
             }
-            MysqlStatsManager.updatePlayerStats(stats);
+            MysqlPlayerManager.updateStats(stats);
         }
         StatsPlugin.lastSaveTime = thisTime;
     }

@@ -1,6 +1,6 @@
 package ovski.studstats;
 
-import ovski.api.mysql.MysqlStatsManager;
+import ovski.api.mysql.MysqlPlayerManager;
 
 public class NoteTools {
 
@@ -28,7 +28,7 @@ public class NoteTools {
      */
     public static int getNoteMaximaleValue(String pseudo)
     {
-        long playedTime = MysqlStatsManager.getPlayerStats(pseudo).getTimePlayed();
+        long playedTime = MysqlPlayerManager.getStats(pseudo).getTimePlayed();
         //time played < 5h
         if(playedTime < 18000000)
         {

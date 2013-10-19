@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlStatsManager;
+import ovski.api.mysql.MysqlPlayerManager;
 import ovski.studstats.StatsPlugin;
 
 public class OnPlayerJoin implements Listener
@@ -27,8 +27,8 @@ public class OnPlayerJoin implements Listener
     {
         Player player = event.getPlayer();
         //add the player to the list
-        PlayerStats playerStats = MysqlStatsManager.getPlayerStats(player.getName());
-        //initialize the time (it will be used when a player launch statsCommand or when he leaves)
+        PlayerStats playerStats = MysqlPlayerManager.getStats(player.getName());
+        System.out.println(playerStats);
         if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
         {
             long timeOnJoin = new Date().getTime();

@@ -11,8 +11,7 @@ import java.util.Date;
 
 import ovski.api.entities.PlayerStats;
 import ovski.api.mysql.MysqlKillManager;
-import ovski.api.mysql.MysqlStatsManager;
-import ovski.api.mysql.MysqlUserManager;
+import ovski.api.mysql.MysqlPlayerManager;
 import ovski.studstats.StatsPlugin;
 
 public class OnPlayerDeath implements Listener
@@ -43,8 +42,8 @@ public class OnPlayerDeath implements Listener
             playerKillerStats.incrementKills();
 
             //add a new kill in PlayerKill table
-            int killer_id = MysqlUserManager.getPlayerIdFromPseudo(playerKiller.getName());
-            int killed_id = MysqlUserManager.getPlayerIdFromPseudo(playerKilled.getName());
+            int killer_id = MysqlPlayerManager.getPlayerIdFromPseudo(playerKiller.getName());
+            int killed_id = MysqlPlayerManager.getPlayerIdFromPseudo(playerKilled.getName());
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String currentTime = sdf.format(date);
 
@@ -56,6 +55,6 @@ public class OnPlayerDeath implements Listener
             playerKilledStats.incrementStupidDeaths();
         }
 
-        MysqlStatsManager.updatePlayerStats(playerKilledStats);
+        MysqlPlayerManager.updateStats(playerKilledStats);
     }
 }

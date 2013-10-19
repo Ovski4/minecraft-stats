@@ -9,8 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.ChatColor;
 
 import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlStatsManager;
-import ovski.api.mysql.MysqlUserManager;
+import ovski.api.mysql.MysqlPlayerManager;
 import ovski.studstats.StatsPlugin;
 
 /**
@@ -54,9 +53,9 @@ public class StatsCommand implements CommandExecutor
 
             if (args.length == 1)
             {
-                if(plugin.getServer().getPlayer(args[0]) != null)
-                {
-                    PlayerStats playerStats = StatsPlugin.getPlayerStats(args[0]);
+            	try {
+	            	String playerName = plugin.getServer().getPlayer(args[0]).getName();
+                    PlayerStats playerStats = StatsPlugin.getPlayerStats(playerName);
                     if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
                     {
                         //set the time played by the player
@@ -70,13 +69,11 @@ public class StatsCommand implements CommandExecutor
                     plugin.reloadConfig();
                     commandPlayer.sendMessage(getFormettedStats(playerStats));
                     return true;
-                }
-                else
-                {
+            	} catch (NullPointerException e) {
                     //we check if the required player exists in database
-                    if (MysqlUserManager.exists(args[0]))
+                    if (MysqlPlayerManager.exists(args[0]))
                     {
-                        PlayerStats playerStats = MysqlStatsManager.getPlayerStats(args[0]);
+                        PlayerStats playerStats = MysqlPlayerManager.getStats(args[0]);
                         plugin.reloadConfig();
                         commandPlayer.sendMessage(getFormettedStats(playerStats));
                     }

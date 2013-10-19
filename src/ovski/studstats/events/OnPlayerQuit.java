@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlStatsManager;
+import ovski.api.mysql.MysqlPlayerManager;
 import ovski.studstats.StatsPlugin;
 
 public class OnPlayerQuit implements Listener
@@ -34,7 +34,7 @@ public class OnPlayerQuit implements Listener
             long timePlayed = timeOnQuit-playerStats.getTimeSinceLastSave();
             playerStats.setTimePlayed(playerStats.getTimePlayed()+timePlayed);
         }
-        MysqlStatsManager.updatePlayerStats(playerStats);
+        MysqlPlayerManager.updateStats(playerStats);
         StatsPlugin.playerStatsList.remove(playerStats);
     }
 }

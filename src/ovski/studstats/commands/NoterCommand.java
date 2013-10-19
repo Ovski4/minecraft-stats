@@ -8,8 +8,7 @@ import org.bukkit.entity.Player;
 
 import ovski.api.entities.PlayerStats;
 import ovski.api.mysql.MysqlNoteManager;
-import ovski.api.mysql.MysqlStatsManager;
-import ovski.api.mysql.MysqlUserManager;
+import ovski.api.mysql.MysqlPlayerManager;
 import ovski.studstats.NoteTools;
 import ovski.studstats.StatsPlugin;
 
@@ -28,7 +27,7 @@ public class NoterCommand implements CommandExecutor
                 return true;
             }
             //we check if the player exists
-            if(!MysqlUserManager.exists(args[0]))
+            if(!MysqlPlayerManager.exists(args[0]))
             {
                 commandPlayer.sendMessage(ChatColor.RED+args[0]+" est inconnu sur ce serveur");
                 return true;
@@ -71,8 +70,8 @@ public class NoterCommand implements CommandExecutor
                     }
                     else
                     {
-                        int previousPrestige = MysqlStatsManager.getPrestige(args[0]);
-                        MysqlStatsManager.updatePrestige(args[0], previousPrestige-previousNote+newNote);
+                        int previousPrestige = MysqlPlayerManager.getPrestige(args[0]);
+                        MysqlPlayerManager.updatePrestige(args[0], previousPrestige-previousNote+newNote);
                     }
                     MysqlNoteManager.updateNote(noteId, newNote);
                     commandPlayer.sendMessage(ChatColor.BLUE+"Note ajoutée!");
@@ -88,8 +87,8 @@ public class NoterCommand implements CommandExecutor
                     }
                     else
                     {
-                        int previousPrestige = MysqlStatsManager.getPrestige(args[0]);
-                        MysqlStatsManager.updatePrestige(args[0], previousPrestige+newNote);
+                        int previousPrestige = MysqlPlayerManager.getPrestige(args[0]);
+                        MysqlPlayerManager.updatePrestige(args[0], previousPrestige+newNote);
                     }
                     commandPlayer.sendMessage(ChatColor.BLUE+"Note ajoutée!");
                     return true;

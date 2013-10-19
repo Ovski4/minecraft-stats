@@ -7,7 +7,7 @@ import java.util.Date;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlStatsManager;
+import ovski.api.mysql.MysqlPlayerManager;
 import ovski.studstats.commands.*;
 import ovski.studstats.events.*;
 
@@ -52,7 +52,7 @@ public class StatsPlugin extends JavaPlugin
                 long timePlayed = timeOnServerDisable-playerStats.getTimeSinceLastSave();
                 playerStats.setTimePlayed(playerStats.getTimePlayed()+timePlayed);
             }
-            MysqlStatsManager.updatePlayerStats(playerStats);
+            MysqlPlayerManager.updateStats(playerStats);
         }
         getLogger().info(this.getName()+" v"+this.getDescription().getVersion()+" disabled");
     }
