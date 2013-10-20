@@ -1,4 +1,4 @@
-package ovski.studstats.commands;
+package ovski.minecraft.stats.commands;
 
 import java.util.Date;
 
@@ -8,9 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.ChatColor;
 
-import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlPlayerManager;
-import ovski.studstats.StatsPlugin;
+import ovski.minecraft.api.entities.PlayerStats;
+import ovski.minecraft.api.mysql.MysqlPlayerManager;
+import ovski.minecraft.stats.StatsPlugin;
 
 /**
  * StatsCommand
@@ -32,7 +32,12 @@ public class StatsCommand implements CommandExecutor
         if (sender instanceof Player)
         {
             Player commandPlayer = (Player) sender;
-
+            PlayerStats stats = StatsPlugin.getPlayerStats(commandPlayer.getName());
+            if (stats == null)
+            {
+            	commandPlayer.sendMessage(ChatColor.RED+"Vous devez vous enregistrer!");
+            	return true; 
+            }
             if (args.length == 0)
             {
                 PlayerStats playerStats = StatsPlugin.getPlayerStats(commandPlayer.getName());

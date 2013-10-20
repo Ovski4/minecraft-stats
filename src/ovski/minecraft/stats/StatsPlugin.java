@@ -1,15 +1,16 @@
-package ovski.studstats;
+package ovski.minecraft.stats;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlPlayerManager;
-import ovski.studstats.commands.*;
-import ovski.studstats.events.*;
+import ovski.minecraft.api.entities.PlayerStats;
+import ovski.minecraft.api.mysql.MysqlPlayerManager;
+import ovski.minecraft.stats.commands.*;
+import ovski.minecraft.stats.events.*;
 
 /**
  * StatsPlugin
@@ -21,6 +22,7 @@ public class StatsPlugin extends JavaPlugin
     public static List<PlayerStats> playerStatsList;
     public static long timeBetweenSaves;
     public static long lastSaveTime;
+    public static FileConfiguration config;
 
     /**
      * onEnable method called when the plugin is loading
@@ -28,11 +30,11 @@ public class StatsPlugin extends JavaPlugin
     @Override
     public void onEnable()
     {
+    	this.initVariables();
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
         this.listenEvents();
         this.getCommands();
-        this.initVariables();
         new SaveStats(this).runTaskTimer(this, 400, this.getConfig().getInt("TimebetweenSaves")*20);
         getLogger().info(this.getName()+" v"+this.getDescription().getVersion()+" enabled");
     }
@@ -46,7 +48,7 @@ public class StatsPlugin extends JavaPlugin
         // Save all the stats datas
         for (PlayerStats playerStats : StatsPlugin.playerStatsList)
         {
-            if (this.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
+            if (StatsPlugin.config.getBoolean("StatsToBeRegistered.timeplayed"))
             {
                 long timeOnServerDisable = new Date().getTime();
                 long timePlayed = timeOnServerDisable-playerStats.getTimeSinceLastSave();
@@ -63,7 +65,7 @@ public class StatsPlugin extends JavaPlugin
     public void getCommands()
     {
         getCommand("stats").setExecutor(new StatsCommand(this));
-        if (this.getConfig().getBoolean("StatsToBeRegistered.prestige"))
+        if (StatsPlugin.config.getBoolean("StatsToBeRegistered.prestige"))
             getCommand("noter").setExecutor(new NoterCommand());
     }
 
@@ -89,7 +91,8 @@ public class StatsPlugin extends JavaPlugin
      */
     public void initVariables()
     {
-        StatsPlugin.timeBetweenSaves = this.getConfig().getInt("TimebetweenSaves");
+    	StatsPlugin.config = this.getConfig();
+        StatsPlugin.timeBetweenSaves = StatsPlugin.config.getInt("TimebetweenSaves");
         StatsPlugin.lastSaveTime = new Date().getTime();
         StatsPlugin.playerStatsList  = new ArrayList<PlayerStats>();
     }
@@ -107,6 +110,20 @@ public class StatsPlugin extends JavaPlugin
             {
                 return playerStats;
             }
+        }
+        // if the playerStats are not in the list, we check if the player have stats and
+        // add them to the list before returning the player
+        PlayerStats playerStats = MysqlPlayerManager.getStats(pseudo);
+        if (playerStats != null)
+        {
+	        if (StatsPlugin.config.getBoolean("StatsToBeRegistered.timeplayed"))
+	        {
+	            long timeOnJoin = new Date().getTime();
+	            playerStats.setTimeSinceLastSave(timeOnJoin);
+	        }
+	        StatsPlugin.playerStatsList.add(playerStats);
+
+	        return playerStats;
         }
         return null;
     }

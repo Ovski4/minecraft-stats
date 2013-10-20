@@ -1,9 +1,9 @@
-package ovski.studstats;
+package ovski.minecraft.stats;
 
 import java.util.Date;
 import org.bukkit.scheduler.BukkitRunnable;
-import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlPlayerManager;
+import ovski.minecraft.api.entities.PlayerStats;
+import ovski.minecraft.api.mysql.MysqlPlayerManager;
 
 /**
  * SaveStats
@@ -18,6 +18,7 @@ public class SaveStats extends BukkitRunnable {
     {
         this.plugin = plugin;
     }
+
     public void run() {
         long thisTime = new Date().getTime();
         for (PlayerStats stats : StatsPlugin.playerStatsList)

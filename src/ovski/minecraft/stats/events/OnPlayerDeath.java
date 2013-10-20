@@ -1,4 +1,4 @@
-package ovski.studstats.events;
+package ovski.minecraft.stats.events;
 
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -9,10 +9,10 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.Date;
 
-import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlKillManager;
-import ovski.api.mysql.MysqlPlayerManager;
-import ovski.studstats.StatsPlugin;
+import ovski.minecraft.api.entities.PlayerStats;
+import ovski.minecraft.api.mysql.MysqlKillManager;
+import ovski.minecraft.api.mysql.MysqlPlayerManager;
+import ovski.minecraft.stats.StatsPlugin;
 
 public class OnPlayerDeath implements Listener
 {
@@ -27,7 +27,10 @@ public class OnPlayerDeath implements Listener
         Date date = new Date();
         Player playerKilled = (Player) event.getEntity();
         PlayerStats playerKilledStats = StatsPlugin.getPlayerStats(playerKilled.getName());
-
+        if (playerKilledStats == null)
+        {
+        	return;
+        }
         //killed by a NPC
         if (!(playerKilled.getKiller() instanceof Player) && playerKilled.getKiller() instanceof HumanEntity)
         {
@@ -39,6 +42,7 @@ public class OnPlayerDeath implements Listener
             playerKilledStats.incrementNormalDeaths();
             Player playerKiller = playerKilled.getKiller();
             PlayerStats playerKillerStats = StatsPlugin.getPlayerStats(playerKiller.getName());
+            if (playerKillerStats == null) { return; }
             playerKillerStats.incrementKills();
 
             //add a new kill in PlayerKill table

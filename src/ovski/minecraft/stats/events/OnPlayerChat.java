@@ -1,4 +1,4 @@
-package ovski.studstats.events;
+package ovski.minecraft.stats.events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -6,8 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import ovski.api.entities.PlayerStats;
-import ovski.studstats.StatsPlugin;
+import ovski.minecraft.api.entities.PlayerStats;
+import ovski.minecraft.stats.StatsPlugin;
 
 public class OnPlayerChat implements Listener {
     public OnPlayerChat(StatsPlugin plugin)
@@ -21,7 +21,10 @@ public class OnPlayerChat implements Listener {
         //increment the number of messages sent (verbosity) in playerStats object
         Player player = event.getPlayer();
         PlayerStats playerStats = StatsPlugin.getPlayerStats(player.getName());
-        playerStats.incrementVerbosity();
+        if (playerStats != null)
+        {
+        	playerStats.incrementVerbosity();
+        }
 
         //save all stats if time since last time is > at time in the config.yml
         /*long thisTime = new Date().getTime();

@@ -1,4 +1,4 @@
-package ovski.studstats.events;
+package ovski.minecraft.stats.events;
 
 import java.util.Date;
 
@@ -8,9 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlPlayerManager;
-import ovski.studstats.StatsPlugin;
+import ovski.minecraft.api.entities.PlayerStats;
+import ovski.minecraft.api.mysql.MysqlPlayerManager;
+import ovski.minecraft.stats.StatsPlugin;
 
 public class OnPlayerJoin implements Listener
 {
@@ -25,15 +25,17 @@ public class OnPlayerJoin implements Listener
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
     {
-        Player player = event.getPlayer();
+    	Player player = event.getPlayer();
         //add the player to the list
         PlayerStats playerStats = MysqlPlayerManager.getStats(player.getName());
-        System.out.println(playerStats);
-        if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
+        if (playerStats != null)
         {
-            long timeOnJoin = new Date().getTime();
-            playerStats.setTimeSinceLastSave(timeOnJoin);
+	        if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
+	        {
+	            long timeOnJoin = new Date().getTime();
+	            playerStats.setTimeSinceLastSave(timeOnJoin);
+	        }
+	        StatsPlugin.playerStatsList.add(playerStats);
         }
-        StatsPlugin.playerStatsList.add(playerStats);
     }
 }

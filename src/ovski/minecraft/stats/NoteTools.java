@@ -1,6 +1,6 @@
-package ovski.studstats;
+package ovski.minecraft.stats;
 
-import ovski.api.mysql.MysqlPlayerManager;
+import ovski.minecraft.api.mysql.MysqlPlayerManager;
 
 public class NoteTools {
 

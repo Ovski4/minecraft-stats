@@ -1,4 +1,4 @@
-package ovski.studstats.commands;
+package ovski.minecraft.stats.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -6,11 +6,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import ovski.api.entities.PlayerStats;
-import ovski.api.mysql.MysqlNoteManager;
-import ovski.api.mysql.MysqlPlayerManager;
-import ovski.studstats.NoteTools;
-import ovski.studstats.StatsPlugin;
+import ovski.minecraft.api.entities.PlayerStats;
+import ovski.minecraft.api.mysql.MysqlNoteManager;
+import ovski.minecraft.api.mysql.MysqlPlayerManager;
+import ovski.minecraft.stats.NoteTools;
+import ovski.minecraft.stats.StatsPlugin;
 
 public class NoterCommand implements CommandExecutor
 {
@@ -20,10 +20,16 @@ public class NoterCommand implements CommandExecutor
         if (sender instanceof Player)
         {
             Player commandPlayer = (Player) sender;
+            PlayerStats stats = StatsPlugin.getPlayerStats(commandPlayer.getName());
+            if (stats == null)
+            {
+            	commandPlayer.sendMessage(ChatColor.RED+"Vous devez vous enregistrer!");
+            	return true; 
+            }
             //we check if there are enough arguments
             if (args.length != 2)
             {
-                commandPlayer.sendMessage(ChatColor.RED+"Erreur de syntaxe: /apprecier <NomDuJoueur> <valeur de -5 a 5");
+                commandPlayer.sendMessage(ChatColor.RED+"Erreur de syntaxe: /noter <NomDuJoueur> <valeur de -5 a 5");
                 return true;
             }
             //we check if the player exists
