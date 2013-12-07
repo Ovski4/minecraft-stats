@@ -1,3 +1,16 @@
+Installation
+============
+
+    - créer un dossier Yaml dans le repertoire plugins
+    - y mettre un fichier nommé database.yml contenant le texte suivant :
+
+    MySQL:
+    Host: localhost
+    Login: database_user_login
+    Password: database_user_password
+    Database:  database_name
+    Port: 3306
+
     Ce plugin enregistre des statistiques sur les joueurs.
 
     Les statistiques de chaque joueur sont enregistrés dans un objet (classe PlayerStats). De cette manière c'est cet objet qui est modifié lors des évenements, et non pas les tables en base de donnée pour plus de rapidité.
