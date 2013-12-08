@@ -14,35 +14,49 @@ import ovski.minecraft.api.mysql.MysqlKillManager;
 import ovski.minecraft.api.mysql.MysqlPlayerManager;
 import ovski.minecraft.stats.StatsPlugin;
 
+/**
+ * OnPlayerDeath
+ * 
+ * Things to do on player death event
+ *
+ * @author baptiste <baptiste.bouchereau@gmail.com>
+ */
 public class OnPlayerDeath implements Listener
 {
+    /**
+     * Constructor
+     * 
+     * @param plugin
+     */
     public OnPlayerDeath(StatsPlugin plugin)
     {
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
+    /**
+     * On player death
+     * 
+     * @param event
+     */
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event)
     {
         Date date = new Date();
         Player playerKilled = (Player) event.getEntity();
         PlayerStats playerKilledStats = StatsPlugin.getPlayerStats(playerKilled.getName());
-        if (playerKilledStats == null)
-        {
-        	return;
+        if (playerKilledStats == null) {
+            return;
         }
         //killed by a NPC
-        if (!(playerKilled.getKiller() instanceof Player) && playerKilled.getKiller() instanceof HumanEntity)
-        {
+        if (!(playerKilled.getKiller() instanceof Player) && playerKilled.getKiller() instanceof HumanEntity) {
             playerKilledStats.incrementNormalDeaths();
-        }
-        //killed by a player
-        else if (playerKilled.getKiller() instanceof Player)
-        {
+        } else if (playerKilled.getKiller() instanceof Player) { //killed by a player 
             playerKilledStats.incrementNormalDeaths();
             Player playerKiller = playerKilled.getKiller();
             PlayerStats playerKillerStats = StatsPlugin.getPlayerStats(playerKiller.getName());
-            if (playerKillerStats == null) { return; }
+            if (playerKillerStats == null) {
+                return;
+            }
             playerKillerStats.incrementKills();
 
             //add a new kill in PlayerKill table
@@ -52,10 +66,7 @@ public class OnPlayerDeath implements Listener
             String currentTime = sdf.format(date);
 
             MysqlKillManager.insertKill(killer_id, killed_id, playerKiller.getItemInHand().getTypeId(), currentTime);
-        }
-        //stupid kill
-        else
-        {
+        } else { // stupid death
             playerKilledStats.incrementStupidDeaths();
         }
 

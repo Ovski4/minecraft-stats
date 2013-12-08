@@ -9,32 +9,38 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import ovski.minecraft.api.entities.PlayerStats;
 import ovski.minecraft.stats.StatsPlugin;
 
-public class OnPlayerChat implements Listener {
+/**
+ * OnPlayerChat
+ * 
+ * Things to do on player chat event
+ *
+ * @author baptiste <baptiste.bouchereau@gmail.com>
+ */
+public class OnPlayerChat implements Listener
+{
+    /**
+     * Constructor
+     * 
+     * @param plugin
+     */
     public OnPlayerChat(StatsPlugin plugin)
     {
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
+    /**
+     * On player chat
+     * 
+     * @param event
+     */
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event)
     {
         //increment the number of messages sent (verbosity) in playerStats object
         Player player = event.getPlayer();
         PlayerStats playerStats = StatsPlugin.getPlayerStats(player.getName());
-        if (playerStats != null)
-        {
-        	playerStats.incrementVerbosity();
+        if (playerStats != null) {
+             playerStats.incrementVerbosity();
         }
-
-        //save all stats if time since last time is > at time in the config.yml
-        /*long thisTime = new Date().getTime();
-        if ((thisTime-StatsPlugin.lastSaveTime)>(StatsPlugin.timeBetweenSaves*1000))
-        {
-            for (PlayerStats stats : StatsPlugin.playerStatsList)
-            {
-                MysqlStatsManager.updatePlayerStats(stats);
-            }
-            StatsPlugin.lastSaveTime = thisTime;
-        }*/
     }
 }

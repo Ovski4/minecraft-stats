@@ -19,9 +19,24 @@ import ovski.minecraft.stats.events.*;
  */
 public class StatsPlugin extends JavaPlugin
 {
+    /**
+     * A list of PlayerStats
+     */
     public static List<PlayerStats> playerStatsList;
+
+    /**
+     * The time between 2 saves
+     */
     public static long timeBetweenSaves;
+
+    /**
+     * The last save time
+     */
     public static long lastSaveTime;
+
+    /**
+     * The configuration
+     */
     public static FileConfiguration config;
 
     /**
@@ -30,7 +45,7 @@ public class StatsPlugin extends JavaPlugin
     @Override
     public void onEnable()
     {
-    	this.initVariables();
+        this.initVariables();
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
         this.listenEvents();
@@ -46,10 +61,8 @@ public class StatsPlugin extends JavaPlugin
     public void onDisable()
     {
         // Save all the stats datas
-        for (PlayerStats playerStats : StatsPlugin.playerStatsList)
-        {
-            if (StatsPlugin.config.getBoolean("StatsToBeRegistered.timeplayed"))
-            {
+        for (PlayerStats playerStats : StatsPlugin.playerStatsList) {
+            if (StatsPlugin.config.getBoolean("StatsToBeRegistered.timeplayed")) {
                 long timeOnServerDisable = new Date().getTime();
                 long timePlayed = timeOnServerDisable-playerStats.getTimeSinceLastSave();
                 playerStats.setTimePlayed(playerStats.getTimePlayed()+timePlayed);
@@ -91,7 +104,7 @@ public class StatsPlugin extends JavaPlugin
      */
     public void initVariables()
     {
-    	StatsPlugin.config = this.getConfig();
+        StatsPlugin.config = this.getConfig();
         StatsPlugin.timeBetweenSaves = StatsPlugin.config.getInt("TimebetweenSaves");
         StatsPlugin.lastSaveTime = new Date().getTime();
         StatsPlugin.playerStatsList  = new ArrayList<PlayerStats>();
@@ -99,32 +112,29 @@ public class StatsPlugin extends JavaPlugin
 
     /**
      * getPlayerStats method retrieve a PlayerStats object in the playerStatsList
-     * @param String pseudo
+     * @param pseudo
      * @return PlayerStats playerStats : Contains the stat object of a player
      */
     public static PlayerStats getPlayerStats(String pseudo)
     {
-        for (PlayerStats playerStats : StatsPlugin.playerStatsList)
-        {
-            if(playerStats.getPseudo().equals(pseudo))
-            {
+        for (PlayerStats playerStats : StatsPlugin.playerStatsList) {
+            if(playerStats.getPseudo().equals(pseudo)) {
                 return playerStats;
             }
         }
         // if the playerStats are not in the list, we check if the player have stats and
         // add them to the list before returning the player
         PlayerStats playerStats = MysqlPlayerManager.getStats(pseudo);
-        if (playerStats != null)
-        {
-	        if (StatsPlugin.config.getBoolean("StatsToBeRegistered.timeplayed"))
-	        {
-	            long timeOnJoin = new Date().getTime();
-	            playerStats.setTimeSinceLastSave(timeOnJoin);
-	        }
-	        StatsPlugin.playerStatsList.add(playerStats);
+        if (playerStats != null) {
+            if (StatsPlugin.config.getBoolean("StatsToBeRegistered.timeplayed")) {
+                long timeOnJoin = new Date().getTime();
+                playerStats.setTimeSinceLastSave(timeOnJoin);
+            }
+            StatsPlugin.playerStatsList.add(playerStats);
 
-	        return playerStats;
+            return playerStats;
         }
+
         return null;
     }
 }
