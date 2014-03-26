@@ -1,4 +1,6 @@
-package ovski.minecraft.stats.events;
+package net.ovski.minecraft.stats.events;
+
+import net.ovski.minecraft.stats.StatsPlugin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -6,8 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import ovski.minecraft.api.entities.PlayerStats;
-import ovski.minecraft.stats.StatsPlugin;
+import net.ovski.minecraft.api.entities.PlayerStats;
 
 public class OnPlayerChat implements Listener {
     public OnPlayerChat(StatsPlugin plugin)

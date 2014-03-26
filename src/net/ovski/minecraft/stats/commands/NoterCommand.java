@@ -1,4 +1,7 @@
-package ovski.minecraft.stats.commands;
+package net.ovski.minecraft.stats.commands;
+
+import net.ovski.minecraft.stats.NoteTools;
+import net.ovski.minecraft.stats.StatsPlugin;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -6,11 +9,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import ovski.minecraft.api.entities.PlayerStats;
-import ovski.minecraft.api.mysql.MysqlNoteManager;
-import ovski.minecraft.api.mysql.MysqlPlayerManager;
-import ovski.minecraft.stats.NoteTools;
-import ovski.minecraft.stats.StatsPlugin;
+import net.ovski.minecraft.api.entities.PlayerStats;
+import net.ovski.minecraft.api.mysql.MysqlNoteManager;
+import net.ovski.minecraft.api.mysql.MysqlPlayerManager;
 
 public class NoterCommand implements CommandExecutor
 {

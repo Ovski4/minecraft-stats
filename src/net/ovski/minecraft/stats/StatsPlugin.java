@@ -1,16 +1,17 @@
-package ovski.minecraft.stats;
+package net.ovski.minecraft.stats;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
+import net.ovski.minecraft.stats.commands.*;
+import net.ovski.minecraft.stats.events.*;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import ovski.minecraft.api.entities.PlayerStats;
-import ovski.minecraft.api.mysql.MysqlPlayerManager;
-import ovski.minecraft.stats.commands.*;
-import ovski.minecraft.stats.events.*;
+import net.ovski.minecraft.api.entities.PlayerStats;
+import net.ovski.minecraft.api.mysql.MysqlPlayerManager;
 
 /**
  * StatsPlugin

@@ -1,9 +1,9 @@
-package ovski.minecraft.stats;
+package net.ovski.minecraft.stats;
 
 import java.util.Date;
 import org.bukkit.scheduler.BukkitRunnable;
-import ovski.minecraft.api.entities.PlayerStats;
-import ovski.minecraft.api.mysql.MysqlPlayerManager;
+import net.ovski.minecraft.api.entities.PlayerStats;
+import net.ovski.minecraft.api.mysql.MysqlPlayerManager;
 
 /**
  * SaveStats

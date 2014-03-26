@@ -1,4 +1,6 @@
-package ovski.minecraft.stats.events;
+package net.ovski.minecraft.stats.events;
+
+import net.ovski.minecraft.stats.StatsPlugin;
 
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -9,10 +11,9 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.Date;
 
-import ovski.minecraft.api.entities.PlayerStats;
-import ovski.minecraft.api.mysql.MysqlKillManager;
-import ovski.minecraft.api.mysql.MysqlPlayerManager;
-import ovski.minecraft.stats.StatsPlugin;
+import net.ovski.minecraft.api.entities.PlayerStats;
+import net.ovski.minecraft.api.mysql.MysqlKillManager;
+import net.ovski.minecraft.api.mysql.MysqlPlayerManager;
 
 public class OnPlayerDeath implements Listener
 {

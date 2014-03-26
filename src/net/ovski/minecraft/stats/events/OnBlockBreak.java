@@ -1,4 +1,4 @@
-package ovski.minecraft.stats.events;
+package net.ovski.minecraft.stats.events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -6,8 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import ovski.minecraft.api.entities.PlayerStats;
-import ovski.minecraft.stats.StatsPlugin;
+import net.ovski.minecraft.api.entities.PlayerStats;
+import net.ovski.minecraft.stats.StatsPlugin;
 
 public class OnBlockBreak implements Listener
 {

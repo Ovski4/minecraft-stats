@@ -1,6 +1,8 @@
-package ovski.minecraft.stats.commands;
+package net.ovski.minecraft.stats.commands;
 
 import java.util.Date;
+
+import net.ovski.minecraft.stats.StatsPlugin;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,9 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.ChatColor;
 
-import ovski.minecraft.api.entities.PlayerStats;
-import ovski.minecraft.api.mysql.MysqlPlayerManager;
-import ovski.minecraft.stats.StatsPlugin;
+import net.ovski.minecraft.api.entities.PlayerStats;
+import net.ovski.minecraft.api.mysql.MysqlPlayerManager;
 
 /**
  * StatsCommand
