@@ -10,22 +10,38 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 import net.ovski.minecraft.api.entities.PlayerStats;
 
+/**
+ * OnBlockPlace
+ * 
+ * Things to do on block place event
+ *
+ * @author baptiste <baptiste.bouchereau@gmail.com>
+ */
 public class OnBlockPlace implements Listener
 {
+    /**
+     * Constructor
+     * 
+     * @param plugin
+     */
     public OnBlockPlace(StatsPlugin plugin)
     {
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
+    /**
+     * On block place
+     * 
+     * @param event
+     */
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event)
     {
         //increment the number of blocks placed in playerStats object
         Player player = event.getPlayer();
         PlayerStats playerStats = StatsPlugin.getPlayerStats(player.getName());
-        if (playerStats != null)
-        {
-        	playerStats.incrementBlocksPlaced();
+        if (playerStats != null) {
+            playerStats.incrementBlocksPlaced();
         }
     }
 }

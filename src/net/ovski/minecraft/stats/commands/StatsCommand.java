@@ -15,13 +15,20 @@ import net.ovski.minecraft.api.mysql.MysqlPlayerManager;
 
 /**
  * StatsCommand
+ * 
  * this command permit to display statistics of a player
- * @author Ovski
+ * 
+ * @author baptiste <baptiste.bouchereau@gmail.com>
  */
 public class StatsCommand implements CommandExecutor
 {
     private StatsPlugin plugin;
 
+    /**
+     * Constructor
+     * 
+     * @param plugin
+     */
     public StatsCommand(StatsPlugin plugin)
     {
         this.plugin = plugin;
@@ -30,20 +37,17 @@ public class StatsCommand implements CommandExecutor
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        if (sender instanceof Player)
-        {
+        if (sender instanceof Player) {
             Player commandPlayer = (Player) sender;
             PlayerStats stats = StatsPlugin.getPlayerStats(commandPlayer.getName());
-            if (stats == null)
-            {
-            	commandPlayer.sendMessage(ChatColor.RED+"Vous devez vous enregistrer!");
-            	return true; 
+            if (stats == null) {
+                commandPlayer.sendMessage(ChatColor.RED+"Vous devez vous enregistrer!");
+
+                return true; 
             }
-            if (args.length == 0)
-            {
+            if (args.length == 0) {
                 PlayerStats playerStats = StatsPlugin.getPlayerStats(commandPlayer.getName());
-                if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
-                {
+                if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed")) {
                     //set the time played by the player
                     long timeOnCommand = new Date().getTime();
                     long timePlayed = timeOnCommand-playerStats.getTimeSinceLastSave();
@@ -54,16 +58,15 @@ public class StatsCommand implements CommandExecutor
 
                 plugin.reloadConfig();
                 commandPlayer.sendMessage(getFormettedStats(playerStats));
+
                 return true;
             }
 
-            if (args.length == 1)
-            {
-            	try {
-	            	String playerName = plugin.getServer().getPlayer(args[0]).getName();
+            if (args.length == 1) {
+                try {
+                    String playerName = plugin.getServer().getPlayer(args[0]).getName();
                     PlayerStats playerStats = StatsPlugin.getPlayerStats(playerName);
-                    if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
-                    {
+                    if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed")) {
                         //set the time played by the player
                         long timeOnCommand = new Date().getTime();
                         long timePlayed = timeOnCommand-playerStats.getTimeSinceLastSave();
@@ -71,55 +74,53 @@ public class StatsCommand implements CommandExecutor
                         //reset the time since the last save for next time
                         playerStats.setTimeSinceLastSave(timeOnCommand);
                     }
-
                     plugin.reloadConfig();
                     commandPlayer.sendMessage(getFormettedStats(playerStats));
+
                     return true;
-            	} catch (NullPointerException e) {
+                } catch (NullPointerException e) {
                     //we check if the required player exists in database
-                    if (MysqlPlayerManager.exists(args[0]))
-                    {
+                    if (MysqlPlayerManager.exists(args[0])) {
                         PlayerStats playerStats = MysqlPlayerManager.getStats(args[0]);
                         plugin.reloadConfig();
                         commandPlayer.sendMessage(getFormettedStats(playerStats));
-                    }
-                    else
-                    {
+                    } else {
                         commandPlayer.sendMessage(ChatColor.RED+args[0]+" est inconnu sur ce serveur");
                     }
+
                     return true;
                 }
             }
-
+ 
             commandPlayer.sendMessage(ChatColor.RED+"Syntaxe de la commande: /stats nomJoueur (nomJoueur facultatif pour vos propres statistiques)");
+
             return true;
         }
+
         return false;
     }
 
     /**
      * getFormettedStats method format the statistic of the player who launch the command in a string
-     * @param PlayerStats playerStats
+     * 
+     * @param playerStats
      * @return String formattedStats
      */
     public String getFormettedStats(PlayerStats playerStats)
     {
         boolean containStats = false;
         String blockBreakString = "";
-        if (plugin.getConfig().getBoolean("StatsToBeRegistered.blockBreak"))
-        {
+        if (plugin.getConfig().getBoolean("StatsToBeRegistered.blockBreak")) {
             containStats = true;
             blockBreakString = ChatColor.BLUE+"blocs cassés: "+ChatColor.WHITE+playerStats.getBlocksBroken()+"\n";
         }
         String blockPlaceString = "";
-        if (plugin.getConfig().getBoolean("StatsToBeRegistered.blockPlace"))
-        {
+        if (plugin.getConfig().getBoolean("StatsToBeRegistered.blockPlace")) {
             containStats = true;
             blockPlaceString =  ChatColor.BLUE+"blocs placés: "+ChatColor.WHITE+playerStats.getBlocksPlaced()+"\n";
         }
         String deathsString = "";
-        if (plugin.getConfig().getBoolean("StatsToBeRegistered.deaths"))
-        {
+        if (plugin.getConfig().getBoolean("StatsToBeRegistered.deaths")) {
             containStats = true;
             deathsString =  ChatColor.BLUE+"tués: "+ChatColor.WHITE+playerStats.getKills()+"\n"
                     + ChatColor.BLUE+"morts au combat: "+ChatColor.WHITE+playerStats.getNormalDeaths()+"\n"
@@ -127,37 +128,31 @@ public class StatsCommand implements CommandExecutor
                     + ChatColor.BLUE+"ratio tués/morts: "+ChatColor.WHITE+String.valueOf(playerStats.getRatio())+"\n";
         }
         String timeplayedString = "";
-        if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed"))
-        {
+        if (plugin.getConfig().getBoolean("StatsToBeRegistered.timeplayed")) {
             containStats = true;
             timeplayedString = ChatColor.BLUE+"temps de jeu: "+ChatColor.WHITE+playerStats.getFormattedTimePlayed()+"\n";
         }
         String verbosityString = "";
-        if (plugin.getConfig().getBoolean("StatsToBeRegistered.verbosity"))
-        {
+        if (plugin.getConfig().getBoolean("StatsToBeRegistered.verbosity")) {
             containStats = true;
             verbosityString = ChatColor.BLUE+"bavardise: "+ChatColor.WHITE+playerStats.getVerbosity()+"\n";
         }
         String appreciationString = "";
-        if (plugin.getConfig().getBoolean("StatsToBeRegistered.prestige"))
-        {
+        if (plugin.getConfig().getBoolean("StatsToBeRegistered.prestige")) {
             containStats = true;
             appreciationString = ChatColor.BLUE+"prestige: "+ChatColor.WHITE+playerStats.getPrestige();
         }
 
-        if(containStats)
-        {
+        if(containStats) {
             return "--------- "+playerStats.getPseudo()+" - Statistiques ---------\n"
-            + blockBreakString
-            + blockPlaceString
-            + deathsString
-            + timeplayedString
-            + verbosityString
-            + appreciationString
+                + blockBreakString
+                + blockPlaceString
+                + deathsString
+                + timeplayedString
+                + verbosityString
+                + appreciationString
             ;
-        }
-        else
-        {
+        } else {
             return "Desole, aucune statistique n'est activee";
         }
     }
