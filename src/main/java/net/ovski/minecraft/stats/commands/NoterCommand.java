@@ -22,7 +22,6 @@ import net.ovski.minecraft.api.mysql.MysqlPlayerManager;
  */
 public class NoterCommand implements CommandExecutor
 {
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
         if (sender instanceof Player) {

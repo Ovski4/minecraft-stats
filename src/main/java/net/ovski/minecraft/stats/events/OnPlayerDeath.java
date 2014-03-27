@@ -66,7 +66,7 @@ public class OnPlayerDeath implements Listener
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String currentTime = sdf.format(date);
 
-            MysqlKillManager.insertKill(killer_id, killed_id, playerKiller.getItemInHand().getTypeId(), currentTime);
+            MysqlKillManager.insertKill(killer_id, killed_id, playerKiller.getItemInHand().getType().name(), currentTime);
         } else { // stupid death
             playerKilledStats.incrementStupidDeaths();
         }

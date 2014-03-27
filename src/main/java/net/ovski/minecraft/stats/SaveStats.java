@@ -25,7 +25,6 @@ public class SaveStats extends BukkitRunnable
         this.plugin = plugin;
     }
 
-    @Override
     public void run()
     {
         long thisTime = new Date().getTime();

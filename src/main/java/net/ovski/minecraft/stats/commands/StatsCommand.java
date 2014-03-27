@@ -34,7 +34,6 @@ public class StatsCommand implements CommandExecutor
         this.plugin = plugin;
     }
 
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
         if (sender instanceof Player) {
@@ -122,7 +121,7 @@ public class StatsCommand implements CommandExecutor
         String deathsString = "";
         if (plugin.getConfig().getBoolean("StatsToBeRegistered.deaths")) {
             containStats = true;
-            deathsString =  ChatColor.BLUE+"tués: "+ChatColor.WHITE+playerStats.getKills()+"\n"
+            deathsString =  ChatColor.BLUE+"tués: "+ChatColor.WHITE+playerStats.getKillNumber()+"\n"
                     + ChatColor.BLUE+"morts au combat: "+ChatColor.WHITE+playerStats.getNormalDeaths()+"\n"
                     + ChatColor.BLUE+"morts stupides: "+ChatColor.WHITE+playerStats.getStupidDeaths()+"\n"
                     + ChatColor.BLUE+"ratio tués/morts: "+ChatColor.WHITE+String.valueOf(playerStats.getRatio())+"\n";
