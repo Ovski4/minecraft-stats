@@ -59,4 +59,3 @@ Displays a player statistics
 
 Give a mark to a player (from -5 to +5)
   * /noter
-
